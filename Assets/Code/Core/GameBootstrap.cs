@@ -6,5 +6,6 @@ public class GameBootstrap : MonoBehaviour {
     if (ServiceLocator.Get<EconomyService>() == null) gameObject.AddComponent<EconomyService>();
     if (ServiceLocator.Get<TechService>() == null) gameObject.AddComponent<TechService>();
     if (ServiceLocator.Get<ScanService>() == null) gameObject.AddComponent<ScanService>();
+    if (GetComponent<SaveManager>() == null) gameObject.AddComponent<SaveManager>();
   }
 }
