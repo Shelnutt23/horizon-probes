@@ -17,4 +17,14 @@ public class ScanService : MonoBehaviour {
     if (Current < amount) return false;
     Current -= amount; return true;
   }
+  public ScanSnapshot ExportSnapshot(){
+    return new ScanSnapshot { Cap = Cap, Current = Current, RegenIntervalS = RegenIntervalS, Accumulator = _accum };
+  }
+  public void ImportSnapshot(ScanSnapshot snapshot){
+    if (snapshot == null) return;
+    Cap = snapshot.Cap;
+    Current = Mathf.Clamp(snapshot.Current, 0, Cap);
+    RegenIntervalS = snapshot.RegenIntervalS;
+    _accum = Mathf.Clamp(snapshot.Accumulator, 0f, RegenIntervalS);
+  }
 }

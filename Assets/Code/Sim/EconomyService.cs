@@ -10,4 +10,14 @@ public class EconomyService : MonoBehaviour {
     if (M < m || V < v || D < d) return false;
     M -= m; V -= v; D -= d; return true;
   }
+  public EconomySnapshot ExportSnapshot(){
+    return new EconomySnapshot { M = M, V = V, D = D, X = X };
+  }
+  public void ImportSnapshot(EconomySnapshot snapshot){
+    if (snapshot == null) return;
+    M = snapshot.M;
+    V = snapshot.V;
+    D = snapshot.D;
+    X = snapshot.X;
+  }
 }
