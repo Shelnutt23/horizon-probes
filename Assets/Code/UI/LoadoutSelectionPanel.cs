@@ -4,8 +4,12 @@ using System.Linq;
 using UnityEngine;
 
 public class LoadoutSelectionPanel : MonoBehaviour {
+  [Header("Theme Assets")]
+  [SerializeField] string panelBackgroundTexturePath = "Art/UI/loadout_panel_bg";
   public Rect panelRect = new Rect(10f, 170f, 420f, 520f);
   GUIStyle _boldLabel;
+  GUIStyle _panelStyle;
+  Texture2D _panelTexture;
   LoadoutBuilder _builder;
   ChassisJson[] _chassis = Array.Empty<ChassisJson>();
   IReadOnlyList<ModuleJson> _payloadModules = Array.Empty<ModuleJson>();
@@ -27,6 +31,7 @@ public class LoadoutSelectionPanel : MonoBehaviour {
       Debug.LogError("LoadoutSelectionPanel requires LoadoutBuilder service in the scene.");
       return;
     }
+    _panelTexture = UIResourceHelper.LoadTexture(panelBackgroundTexturePath);
     _chassis = _builder.AvailableChassis.ToArray();
     _payloadModules = _builder.GetModulesForSlot("payload");
     _powerModules = _builder.GetModulesForSlot("power");
@@ -46,7 +51,7 @@ public class LoadoutSelectionPanel : MonoBehaviour {
       GUILayout.EndArea();
       return;
     }
-    GUILayout.BeginArea(panelRect, GUI.skin.box);
+    GUILayout.BeginArea(panelRect, GetPanelStyle());
     GUILayout.Label("Loadout Configuration", GUI.skin.label);
     DrawChassisSelector();
     DrawModuleSelectors();
@@ -159,5 +164,17 @@ public class LoadoutSelectionPanel : MonoBehaviour {
       _boldLabel = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold };
     }
     return _boldLabel;
+  }
+
+  GUIStyle GetPanelStyle() {
+    if (_panelStyle == null) {
+      _panelStyle = new GUIStyle(GUI.skin.box);
+      if (_panelTexture != null) {
+        _panelStyle.normal.background = _panelTexture;
+        _panelStyle.border = new RectOffset(12, 12, 12, 12);
+        _panelStyle.padding = new RectOffset(16, 16, 16, 16);
+      }
+    }
+    return _panelStyle;
   }
 }

@@ -13,6 +13,11 @@ public class MissionPanelController : MonoBehaviour {
     public Text Status;
   }
 
+  [Header("Theme Assets")]
+  [SerializeField] string panelBackgroundSpritePath = "Art/UI/mission_panel_bg";
+  [SerializeField] string sectionBackgroundSpritePath = "Art/UI/mission_section_bg";
+  [SerializeField] string buttonSpritePath = "Art/UI/mission_button_bg";
+
   private readonly Dictionary<MissionInstance, MissionEntryView> _activeEntries = new Dictionary<MissionInstance, MissionEntryView>();
 
   private RectTransform _missionButtonRoot;
@@ -23,8 +28,12 @@ public class MissionPanelController : MonoBehaviour {
 
   private MissionService _missionService;
   private EconomyService _economyService;
+  private Sprite _panelBackgroundSprite;
+  private Sprite _sectionBackgroundSprite;
+  private Sprite _buttonBackgroundSprite;
 
   void Awake() {
+    LoadThemeSprites();
     EnsureEventSystem();
     BuildUI();
   }
@@ -182,7 +191,13 @@ public class MissionPanelController : MonoBehaviour {
     panelRect.anchoredPosition = new Vector2(-24f, -24f);
     panelRect.sizeDelta = new Vector2(360f, 520f);
     var panelImage = panelGO.GetComponent<Image>();
-    panelImage.color = new Color(0.12f, 0.16f, 0.2f, 0.9f);
+    if (_panelBackgroundSprite != null) {
+      panelImage.sprite = _panelBackgroundSprite;
+      panelImage.color = Color.white;
+      panelImage.type = _panelBackgroundSprite.border != Vector4.zero ? Image.Type.Sliced : Image.Type.Simple;
+    } else {
+      panelImage.color = new Color(0.12f, 0.16f, 0.2f, 0.9f);
+    }
     var panelLayout = panelGO.GetComponent<VerticalLayoutGroup>();
     panelLayout.padding = new RectOffset(12, 12, 12, 12);
     panelLayout.spacing = 12f;
@@ -222,7 +237,14 @@ public class MissionPanelController : MonoBehaviour {
     bgRect.anchorMax = Vector2.one;
     bgRect.offsetMin = new Vector2(0, 0);
     bgRect.offsetMax = new Vector2(0, 0);
-    background.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.3f);
+    var backgroundImage = background.GetComponent<Image>();
+    if (_sectionBackgroundSprite != null) {
+      backgroundImage.sprite = _sectionBackgroundSprite;
+      backgroundImage.color = Color.white;
+      backgroundImage.type = _sectionBackgroundSprite.border != Vector4.zero ? Image.Type.Sliced : Image.Type.Simple;
+    } else {
+      backgroundImage.color = new Color(0f, 0f, 0f, 0.3f);
+    }
 
     var content = new GameObject("Content", typeof(RectTransform), typeof(VerticalLayoutGroup));
     content.transform.SetParent(background.transform, false);
@@ -246,7 +268,13 @@ public class MissionPanelController : MonoBehaviour {
     var buttonGO = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
     buttonGO.transform.SetParent(parent, false);
     var image = buttonGO.GetComponent<Image>();
-    image.color = new Color(0.2f, 0.35f, 0.45f, 0.9f);
+    if (_buttonBackgroundSprite != null) {
+      image.sprite = _buttonBackgroundSprite;
+      image.color = Color.white;
+      image.type = _buttonBackgroundSprite.border != Vector4.zero ? Image.Type.Sliced : Image.Type.Simple;
+    } else {
+      image.color = new Color(0.2f, 0.35f, 0.45f, 0.9f);
+    }
     var text = CreateText("Button", buttonGO.transform, 16, FontStyle.Normal, TextAnchor.MiddleCenter);
     text.rectTransform.anchorMin = Vector2.zero;
     text.rectTransform.anchorMax = Vector2.one;
@@ -259,7 +287,13 @@ public class MissionPanelController : MonoBehaviour {
     var entryGO = new GameObject("ActiveMissionTemplate", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
     entryGO.transform.SetParent(parent, false);
     var image = entryGO.GetComponent<Image>();
-    image.color = new Color(0.15f, 0.22f, 0.28f, 0.85f);
+    if (_sectionBackgroundSprite != null) {
+      image.sprite = _sectionBackgroundSprite;
+      image.color = Color.white;
+      image.type = _sectionBackgroundSprite.border != Vector4.zero ? Image.Type.Sliced : Image.Type.Simple;
+    } else {
+      image.color = new Color(0.15f, 0.22f, 0.28f, 0.85f);
+    }
 
     var layout = entryGO.AddComponent<VerticalLayoutGroup>();
     layout.spacing = 2f;
@@ -281,8 +315,14 @@ public class MissionPanelController : MonoBehaviour {
     uiText.fontSize = size;
     uiText.fontStyle = style;
     uiText.alignment = anchor;
-    uiText.color = Color.white;
+    uiText.color = new Color(0.92f, 0.95f, 1f, 1f);
     uiText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
     return uiText;
+  }
+
+  void LoadThemeSprites() {
+    _panelBackgroundSprite = UIResourceHelper.LoadSprite(panelBackgroundSpritePath);
+    _sectionBackgroundSprite = UIResourceHelper.LoadSprite(sectionBackgroundSpritePath);
+    _buttonBackgroundSprite = UIResourceHelper.LoadSprite(buttonSpritePath);
   }
 }
