@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LoadoutSelectionPanel : MonoBehaviour {
   public Rect panelRect = new Rect(10f, 170f, 420f, 520f);
+  GUIStyle _boldLabel;
   LoadoutBuilder _builder;
   ChassisJson[] _chassis = Array.Empty<ChassisJson>();
   IReadOnlyList<ModuleJson> _payloadModules = Array.Empty<ModuleJson>();
@@ -54,7 +55,7 @@ public class LoadoutSelectionPanel : MonoBehaviour {
   }
 
   void DrawChassisSelector() {
-    GUILayout.Label("Chassis", GUI.skin.boldLabel);
+    GUILayout.Label("Chassis", GetBoldLabel());
     if (_chassis.Length == 0) {
       GUILayout.Label("No chassis data found.");
       return;
@@ -81,17 +82,17 @@ public class LoadoutSelectionPanel : MonoBehaviour {
 
   void DrawModuleSelectors() {
     GUILayout.Space(8f);
-    GUILayout.Label("Payload Modules", GUI.skin.boldLabel);
+    GUILayout.Label("Payload Modules", GetBoldLabel());
     _selectedPayloadIndex = DrawModuleSelectionGrid(_payloadModules, _selectedPayloadIndex, out var payloadSelection);
     CurrentConfiguration.PayloadModule = payloadSelection;
 
     GUILayout.Space(4f);
-    GUILayout.Label("Power Modules", GUI.skin.boldLabel);
+    GUILayout.Label("Power Modules", GetBoldLabel());
     _selectedPowerIndex = DrawModuleSelectionGrid(_powerModules, _selectedPowerIndex, out var powerSelection);
     CurrentConfiguration.PowerModule = powerSelection;
 
     GUILayout.Space(4f);
-    GUILayout.Label("Utility Modules", GUI.skin.boldLabel);
+    GUILayout.Label("Utility Modules", GetBoldLabel());
     if (CurrentConfiguration.Chassis == null) {
       GUILayout.Label("Select a chassis to configure utility slots.");
     } else {
@@ -141,7 +142,7 @@ public class LoadoutSelectionPanel : MonoBehaviour {
 
   void DrawStats() {
     GUILayout.Space(8f);
-    GUILayout.Label("Loadout Stats", GUI.skin.boldLabel);
+    GUILayout.Label("Loadout Stats", GetBoldLabel());
     if (CurrentStats == null) {
       GUILayout.Label("Select a chassis and modules to preview stats.");
       return;
@@ -152,5 +153,11 @@ public class LoadoutSelectionPanel : MonoBehaviour {
     GUILayout.Label($"Stealth: {CurrentStats.Stealth:F2}");
     GUILayout.Label($"Generic Mitigation: {_builder.EvaluateGenericMitigation(CurrentStats):P0}");
     GUILayout.Label($"Yield Multipliers - M:{CurrentStats.GetResourceMultiplier("M"):F2} V:{CurrentStats.GetResourceMultiplier("V"):F2} D:{CurrentStats.GetResourceMultiplier("D"):F2} X:{CurrentStats.GetResourceMultiplier("X"):F2}");
+  }
+  GUIStyle GetBoldLabel() {
+    if (_boldLabel == null) {
+      _boldLabel = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold };
+    }
+    return _boldLabel;
   }
 }

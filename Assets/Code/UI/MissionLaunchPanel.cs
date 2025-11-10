@@ -6,6 +6,7 @@ public class MissionLaunchPanel : MonoBehaviour {
   public Rect panelRect = new Rect(450f, 170f, 420f, 520f);
   public int scanEnergyCost = 1;
   public LoadoutSelectionPanel loadoutPanel;
+  GUIStyle _boldLabel;
 
   MissionJson[] _missions = Array.Empty<MissionJson>();
   int _selectedMissionIndex = -1;
@@ -35,7 +36,7 @@ public class MissionLaunchPanel : MonoBehaviour {
   }
 
   void DrawMissionSelector() {
-    GUILayout.Label("Available Missions", GUI.skin.boldLabel);
+    GUILayout.Label("Available Missions", GetBoldLabel());
     if (_missions.Length == 0) {
       GUILayout.Label("No missions defined.");
       return;
@@ -66,10 +67,17 @@ public class MissionLaunchPanel : MonoBehaviour {
     GUILayout.Label($"Base Yield - M:{mission.baseM} V:{mission.baseV} D:{mission.baseD} X:{mission.baseX:F1}");
     if (loadoutPanel?.CurrentStats != null) {
       var stats = loadoutPanel.CurrentStats;
-      GUILayout.Label("-- Loadout Preview --", GUI.skin.boldLabel);
+      GUILayout.Label("-- Loadout Preview --", GetBoldLabel());
       GUILayout.Label($"Autonomy {stats.Autonomy:F2}  Reliability {stats.Reliability:F2}");
       GUILayout.Label($"Throughput {stats.Throughput:F2}  Stealth {stats.Stealth:F2}");
     }
+  }
+
+  GUIStyle GetBoldLabel() {
+    if (_boldLabel == null) {
+      _boldLabel = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold };
+    }
+    return _boldLabel;
   }
 
   void DrawLaunchControls() {
