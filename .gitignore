@@ -1,0 +1,37 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Oo]bj/
+[Mm]emoryCaptures/
+UserSettings/
+
+# VS/JetBrains/OS
+.vs/
+*.csproj
+*.sln
+*.suo
+*.user
+*.unityproj
+*.pidb
+*.userprefs
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.idea/
+.DS_Store
+Thumbs.db
+
+# Unity packages cache
+Packages/*-lock.json
+
+# Crash/Profiler
+*.stacktrace
+
+# Optional generated data
+Assets/AddressableAssetsData/*/Windows/
+Assets/AddressableAssetsData/*/Android/

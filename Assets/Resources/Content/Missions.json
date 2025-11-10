@@ -1,0 +1,37 @@
+{
+  "missions": [
+    {
+      "id": "survey_v1",
+      "type": "survey",
+      "baseDurationS": 60,
+      "tickS": 60,
+      "baseFail": 0.01,
+      "baseM": 0,
+      "baseV": 3,
+      "baseD": 8,
+      "baseX": 0.0
+    },
+    {
+      "id": "mine_v1",
+      "type": "mine",
+      "baseDurationS": 180,
+      "tickS": 60,
+      "baseFail": 0.02,
+      "baseM": 12,
+      "baseV": 0,
+      "baseD": 0,
+      "baseX": 0.0
+    },
+    {
+      "id": "replicate_v1",
+      "type": "replicate",
+      "baseDurationS": 360,
+      "tickS": 60,
+      "baseFail": 0.02,
+      "baseM": 0,
+      "baseV": 0,
+      "baseD": 0,
+      "baseX": 0.0
+    }
+  ]
+}

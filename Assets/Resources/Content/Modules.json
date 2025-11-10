@@ -1,0 +1,91 @@
+{
+  "modules": [
+    {
+      "id": "m_drill1",
+      "slot": "payload",
+      "effects": [
+        {
+          "stat": "throughput",
+          "op": "mul",
+          "value": 1.2,
+          "resource": "M"
+        }
+      ],
+      "risks": []
+    },
+    {
+      "id": "m_foundry",
+      "slot": "utility",
+      "effects": [
+        {
+          "stat": "cargoDensity",
+          "op": "mul",
+          "value": 1.3
+        }
+      ],
+      "risks": []
+    },
+    {
+      "id": "m_fab",
+      "slot": "utility",
+      "effects": [
+        {
+          "stat": "unlock",
+          "op": "set",
+          "value": 1,
+          "tag": "replicate"
+        }
+      ],
+      "risks": []
+    },
+    {
+      "id": "m_radiator",
+      "slot": "utility",
+      "effects": [
+        {
+          "stat": "mitigation",
+          "op": "mul",
+          "value": 0.7,
+          "tag": "thermal"
+        }
+      ],
+      "risks": []
+    },
+    {
+      "id": "m_reactor1",
+      "slot": "power",
+      "effects": [
+        {
+          "stat": "energyOutput",
+          "op": "add",
+          "value": 1.0
+        },
+        {
+          "stat": "failureTag",
+          "op": "add",
+          "value": 1,
+          "tag": "thermal"
+        }
+      ],
+      "risks": []
+    },
+    {
+      "id": "m_shield",
+      "slot": "utility",
+      "effects": [
+        {
+          "stat": "mitigation",
+          "op": "mul",
+          "value": 0.6,
+          "tag": "radiation"
+        },
+        {
+          "stat": "genericMitigation",
+          "op": "mul",
+          "value": 0.9
+        }
+      ],
+      "risks": []
+    }
+  ]
+}

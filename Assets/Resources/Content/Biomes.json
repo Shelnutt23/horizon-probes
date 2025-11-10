@@ -1,0 +1,16 @@
+{
+  "biomes": [
+    {
+      "id": "b_asteroid",
+      "displayName": "Asteroid Belt",
+      "hazardMult": 1.1,
+      "yieldM": 1.4,
+      "yieldV": 0.9,
+      "yieldD": 1.0,
+      "yieldX": 0.8,
+      "tags": [
+        "abrasion"
+      ]
+    }
+  ]
+}

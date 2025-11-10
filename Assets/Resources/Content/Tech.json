@@ -1,0 +1,63 @@
+{
+  "tech": [
+    {
+      "id": "t_isru",
+      "tier": 1,
+      "cost_D": 100,
+      "effects": [
+        {
+          "target": "yield",
+          "resource": "M",
+          "op": "mul",
+          "value": 1.1
+        },
+        {
+          "target": "yield",
+          "resource": "V",
+          "op": "mul",
+          "value": 1.1
+        }
+      ]
+    },
+    {
+      "id": "t_survey",
+      "tier": 1,
+      "cost_D": 120,
+      "effects": [
+        {
+          "target": "yield",
+          "mission": "survey",
+          "resource": "D",
+          "op": "mul",
+          "value": 1.2
+        }
+      ]
+    },
+    {
+      "id": "t_lightrep",
+      "tier": 1,
+      "cost_D": 150,
+      "effects": [
+        {
+          "target": "unlock",
+          "id": "replicate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "t_reliab1",
+      "tier": 1,
+      "cost_D": 180,
+      "effects": [
+        {
+          "target": "fail",
+          "key": "genericMitigation",
+          "op": "mul",
+          "value": 0.9
+        }
+      ]
+    }
+  ]
+}
