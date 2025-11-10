@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 public class MissionInstance {
   public string missionId;
   public MissionType type;
@@ -15,6 +16,9 @@ public class MissionInstance {
   public ResourceBundle baseTickYield;
   public ulong missionSeed;
   public ResourceBundle yieldsSoFar;
+  public LoadoutBuilder.LoadoutStats loadoutStats;
+  public string chassisId;
+  public List<string> moduleIds = new List<string>();
 
   public bool TickOnce(int tickIndex) {
     var state = RNG.Seed(missionSeed, (ulong)tickIndex);
